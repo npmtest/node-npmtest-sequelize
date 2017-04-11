@@ -1,0 +1,3206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-sequelize/sequelize/lib/data-types.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-sequelize">npmtest-sequelize (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-sequelize/sequelize/lib/data-types.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">35.73% <small>(139 / 389)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">1.38% <small>(3 / 218)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">6.41% <small>(5 / 78)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">38.08% <small>(139 / 365)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-sequelize/sequelize/lib/</a> &#187; data-types.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">64</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64</span>
+<span class="cline-any cline-yes">64</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+/*jshint -W110 */
+&nbsp;
+var util = require('util')
+  , _ = require('lodash')
+  , Wkt = require('terraformer-wkt-parser')
+  , sequelizeErrors = require('./errors')
+  , warnings = {}
+  , Validator = require('validator')
+  , momentTz = require('moment-timezone')
+  , moment = require('moment');
+&nbsp;
+/**
+ * A convenience class holding commonly used data types. The datatypes are used when defining a new model using `Sequelize.define`, like this:
+ * ```js
+ * sequelize.define('model', {
+ *   column: DataTypes.INTEGER
+ * })
+ * ```
+ * When defining a model you can just as easily pass a string as type, but often using the types defined here is beneficial. For example, using `DataTypes.BLOB`, mean
+ * that that column will be returned as an instance of `Buffer` when being fetched by sequelize.
+ *
+ * Some data types have special properties that can be accessed in order to change the data type.
+ * For example, to get an unsigned integer with zerofill you can do `DataTypes.INTEGER.UNSIGNED.ZEROFILL`.
+ * The order you access the properties in do not matter, so `DataTypes.INTEGER.ZEROFILL.UNSIGNED` is fine as well. The available properties are listed under each data type.
+ *
+ * To provide a length for the data type, you can invoke it like a function: `INTEGER(2)`
+ *
+ * Three of the values provided here (`NOW`, `UUIDV1` and `UUIDV4`) are special default values, that should not be used to define types. Instead they are used as shorthands for
+ * defining default values. For example, to get a uuid field with a default value generated following v1 of the UUID standard:
+ * ```js
+ * sequelize.define('model', {
+ *   uuid: {
+ *     type: DataTypes.UUID,
+ *     defaultValue: DataTypes.UUIDV1,
+ *     primaryKey: true
+ *   }
+ * })
+ * ```
+ * There may be times when you want to generate your own UUID conforming to some other algorithm. This is accomplised
+ * using the defaultValue property as well, but instead of specifying one of the supplied UUID types, you return a value
+ * from a function.
+ * ```js
+ * sequelize.define('model', {
+ *   uuid: {
+ *     type: DataTypes.UUID,
+ *     defaultValue: function() {
+ *       return generateMyId()
+ *     },
+ *     primaryKey: true
+ *   }
+ * })
+ * ```
+ *
+ * @class DataTypes
+ */
+&nbsp;
+var ABSTRACT = <span class="fstat-no" title="function not covered" >function(options) {</span>
+};
+&nbsp;
+ABSTRACT.prototype.dialectTypes = '';
+&nbsp;
+ABSTRACT.prototype.toString = <span class="fstat-no" title="function not covered" >function(options) {</span>
+<span class="cstat-no" title="statement not covered" >  return this.toSql(options);</span>
+};
+ABSTRACT.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return this.key;</span>
+};
+ABSTRACT.warn = <span class="fstat-no" title="function not covered" >function(link, text) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!warnings[text]) {</span>
+<span class="cstat-no" title="statement not covered" >    warnings[text] = true;</span>
+<span class="cstat-no" title="statement not covered" >    console.warn('&gt;&gt; WARNING:', text, '\n&gt;&gt; Check:', link);</span>
+  }
+};
+ABSTRACT.prototype.stringify = <span class="fstat-no" title="function not covered" >function (value, options) {</span>
+<span class="cstat-no" title="statement not covered" >  if (this.$stringify) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.$stringify(value, options);</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return value;</span>
+};
+&nbsp;
+ABSTRACT.inherits = function (Constructor) {
+  var baseType = this;
+&nbsp;
+  if (!Constructor) {
+    Constructor = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >      if (!(this instanceof Constructor)) {</span>
+<span class="cstat-no" title="statement not covered" >        var args = [null].concat(arguments);</span>
+<span class="cstat-no" title="statement not covered" >        var FactoryFunction = Constructor.bind.apply(Constructor, args);</span>
+<span class="cstat-no" title="statement not covered" >        return new FactoryFunction();</span>
+      }
+<span class="cstat-no" title="statement not covered" >      baseType.apply(this, arguments);</span>
+    };
+  }
+&nbsp;
+  util.inherits(Constructor, baseType); // Instance (prototype) methods
+  _.extend(Constructor, this); // Static methods
+&nbsp;
+  return Constructor;
+};
+&nbsp;
+&nbsp;
+/**
+ * A variable length string. Default length 255
+ *
+ * Available properties: `BINARY`
+ *
+ * @property STRING
+ */
+var STRING = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function(length, binary) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length,
+    binary: binary
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof STRING)) <span class="cstat-no" title="statement not covered" >return new STRING(options);</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+<span class="cstat-no" title="statement not covered" >  this._binary = options.binary;</span>
+<span class="cstat-no" title="statement not covered" >  this._length = options.length || 255;</span>
+});
+&nbsp;
+STRING.prototype.key = STRING.key = 'STRING';
+STRING.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return 'VARCHAR(' + this._length + ')' + ((this._binary) ? ' BINARY' : '');</span>
+};
+STRING.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (Object.prototype.toString.call(value) !== '[object String]') {</span>
+<span class="cstat-no" title="statement not covered" >    if ((this.options.binary &amp;&amp; Buffer.isBuffer(value)) || _.isNumber(value)) {</span>
+<span class="cstat-no" title="statement not covered" >      return true;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid string', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+Object.defineProperty(STRING.prototype, 'BINARY', {
+  get: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._binary = true;</span>
+<span class="cstat-no" title="statement not covered" >    this.options.binary = true;</span>
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+  }
+});
+&nbsp;
+/**
+ * A fixed length string. Default length 255
+ *
+ * Available properties: `BINARY`
+ *
+ * @property CHAR
+ */
+var CHAR = STRING.inherits(<span class="fstat-no" title="function not covered" >function(length, binary) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length,
+    binary: binary
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof CHAR)) <span class="cstat-no" title="statement not covered" >return new CHAR(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  STRING.apply(this, arguments);</span>
+});
+&nbsp;
+CHAR.prototype.key = CHAR.key = 'CHAR';
+CHAR.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return 'CHAR(' + this._length + ')' + ((this._binary) ? ' BINARY' : '');</span>
+};
+&nbsp;
+/**
+ * An (un)limited length text column. Available lengths: `tiny`, `medium`, `long`
+ * @property TEXT
+ */
+var TEXT = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function(length) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof TEXT)) <span class="cstat-no" title="statement not covered" >return new TEXT(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+<span class="cstat-no" title="statement not covered" >  this._length = options.length || '';</span>
+});
+&nbsp;
+TEXT.prototype.key = TEXT.key = 'TEXT';
+TEXT.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  switch (this._length.toLowerCase()) {</span>
+  case 'tiny':
+<span class="cstat-no" title="statement not covered" >    return 'TINYTEXT';</span>
+  case 'medium':
+<span class="cstat-no" title="statement not covered" >    return 'MEDIUMTEXT';</span>
+  case 'long':
+<span class="cstat-no" title="statement not covered" >    return 'LONGTEXT';</span>
+  default:
+<span class="cstat-no" title="statement not covered" >    return this.key;</span>
+  }
+};
+TEXT.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.isString(value)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid string', value));</span>
+   }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+var NUMBER = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function(options) {</span>
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+<span class="cstat-no" title="statement not covered" >  this._length = options.length;</span>
+<span class="cstat-no" title="statement not covered" >  this._zerofill = options.zerofill;</span>
+<span class="cstat-no" title="statement not covered" >  this._decimals = options.decimals;</span>
+<span class="cstat-no" title="statement not covered" >  this._precision = options.precision;</span>
+<span class="cstat-no" title="statement not covered" >  this._scale = options.scale;</span>
+<span class="cstat-no" title="statement not covered" >  this._unsigned = options.unsigned;</span>
+});
+&nbsp;
+NUMBER.prototype.key = NUMBER.key = 'NUMBER';
+NUMBER.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  var result = this.key;</span>
+<span class="cstat-no" title="statement not covered" >  if (this._length) {</span>
+<span class="cstat-no" title="statement not covered" >    result += '(' + this._length;</span>
+<span class="cstat-no" title="statement not covered" >    if (typeof this._decimals === 'number') {</span>
+<span class="cstat-no" title="statement not covered" >      result += ',' + this._decimals;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    result += ')';</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (this._unsigned) {</span>
+<span class="cstat-no" title="statement not covered" >    result += ' UNSIGNED';</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (this._zerofill) {</span>
+<span class="cstat-no" title="statement not covered" >    result += ' ZEROFILL';</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return result;</span>
+};
+&nbsp;
+NUMBER.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isFloat(String(value))) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid number', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+Object.defineProperty(NUMBER.prototype, 'UNSIGNED', {
+  get: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._unsigned = true;</span>
+<span class="cstat-no" title="statement not covered" >    this.options.unsigned = true;</span>
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+  }
+});
+Object.defineProperty(NUMBER.prototype, 'ZEROFILL', {
+  get: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    this._zerofill = true;</span>
+<span class="cstat-no" title="statement not covered" >    this.options.zerofill = true;</span>
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+  }
+});
+&nbsp;
+/**
+ * A 32 bit integer.
+ *
+ * Available properties: `UNSIGNED`, `ZEROFILL`
+ *
+ * @property INTEGER
+ */
+var INTEGER = NUMBER.inherits(<span class="fstat-no" title="function not covered" >function(length) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof INTEGER)) <span class="cstat-no" title="statement not covered" >return new INTEGER(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  NUMBER.call(this, options);</span>
+});
+&nbsp;
+INTEGER.prototype.key = INTEGER.key = 'INTEGER';
+INTEGER.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isInt(String(value))) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid integer', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * A 64 bit integer.
+ *
+ * Note: an attribute defined as `BIGINT` will be treated like a `string` due this [feature from node-postgres](https://github.com/brianc/node-postgres/pull/353) to prevent precision loss. To have this attribute as a `number`, this is a possible [workaround](https://github.com/sequelize/sequelize/issues/2383#issuecomment-58006083).
+ *
+ * Available properties: `UNSIGNED`, `ZEROFILL`
+ *
+ * @property BIGINT
+ */
+&nbsp;
+var BIGINT = NUMBER.inherits(<span class="fstat-no" title="function not covered" >function(length) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof BIGINT)) <span class="cstat-no" title="statement not covered" >return new BIGINT(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  NUMBER.call(this, options);</span>
+});
+&nbsp;
+BIGINT.prototype.key = BIGINT.key = 'BIGINT';
+BIGINT.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isInt(String(value))) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid bigint', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * Floating point number (4-byte precision). Accepts one or two arguments for precision
+ *
+ * Available properties: `UNSIGNED`, `ZEROFILL`
+ *
+ * @property FLOAT
+ */
+var FLOAT = NUMBER.inherits(<span class="fstat-no" title="function not covered" >function(length, decimals) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length,
+    decimals: decimals
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof FLOAT)) <span class="cstat-no" title="statement not covered" >return new FLOAT(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  NUMBER.call(this, options);</span>
+});
+&nbsp;
+FLOAT.prototype.key = FLOAT.key = 'FLOAT';
+FLOAT.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isFloat(String(value))) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid float', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * Floating point number (4-byte precision). Accepts one or two arguments for precision
+ *
+ * Available properties: `UNSIGNED`, `ZEROFILL`
+ *
+ * @property REAL
+ */
+var REAL = NUMBER.inherits(<span class="fstat-no" title="function not covered" >function(length, decimals) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length,
+    decimals: decimals
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof REAL)) <span class="cstat-no" title="statement not covered" >return new REAL(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  NUMBER.call(this, options);</span>
+});
+&nbsp;
+REAL.prototype.key = REAL.key = 'REAL';
+&nbsp;
+/**
+ * Floating point number (8-byte precision). Accepts one or two arguments for precision
+ *
+ * Available properties: `UNSIGNED`, `ZEROFILL`
+ *
+ * @property DOUBLE
+ */
+var DOUBLE = NUMBER.inherits(<span class="fstat-no" title="function not covered" >function(length, decimals) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length,
+    decimals: decimals
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof DOUBLE)) <span class="cstat-no" title="statement not covered" >return new DOUBLE(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  NUMBER.call(this, options);</span>
+});
+&nbsp;
+DOUBLE.prototype.key = DOUBLE.key = 'DOUBLE PRECISION';
+&nbsp;
+/**
+ * Decimal number. Accepts one or two arguments for precision
+ *
+ * Available properties: `UNSIGNED`, `ZEROFILL`
+ *
+ * @property DECIMAL
+ */
+var DECIMAL = NUMBER.inherits(<span class="fstat-no" title="function not covered" >function(precision, scale) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof precision === 'object' &amp;&amp; precision || {</span>
+    precision: precision,
+    scale: scale
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof DECIMAL)) <span class="cstat-no" title="statement not covered" >return new DECIMAL(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  NUMBER.call(this, options);</span>
+});
+&nbsp;
+DECIMAL.prototype.key = DECIMAL.key = 'DECIMAL';
+DECIMAL.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  if (this._precision || this._scale) {</span>
+<span class="cstat-no" title="statement not covered" >    return 'DECIMAL(' + [this._precision, this._scale].filter(_.identity).join(',') + ')';</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return 'DECIMAL';</span>
+};
+DECIMAL.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isDecimal(String(value))) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid decimal', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+[FLOAT, DOUBLE, REAL].forEach(function (floating) {
+  floating.prototype.escape = false;
+  floating.prototype.$stringify = <span class="fstat-no" title="function not covered" >function (value) {</span>
+<span class="cstat-no" title="statement not covered" >    if (isNaN(value)) {</span>
+<span class="cstat-no" title="statement not covered" >      return "'NaN'";</span>
+    } else <span class="cstat-no" title="statement not covered" >if (!isFinite(value)) {</span>
+<span class="cstat-no" title="statement not covered" >      var sign = value &lt; 0 ? '-' : '';</span>
+<span class="cstat-no" title="statement not covered" >      return "'" + sign + "Infinity'";</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return value;</span>
+  };
+});
+&nbsp;
+/**
+ * A boolean / tinyint column, depending on dialect
+ * @property BOOLEAN
+ */
+var BOOLEAN = ABSTRACT.inherits();
+&nbsp;
+BOOLEAN.prototype.key = BOOLEAN.key = 'BOOLEAN';
+BOOLEAN.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return 'TINYINT(1)';</span>
+};
+BOOLEAN.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isBoolean(String(value))) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid boolean', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * A time column
+ * @property TIME
+ */
+&nbsp;
+var TIME = ABSTRACT.inherits();
+&nbsp;
+TIME.prototype.key = TIME.key = 'TIME';
+TIME.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return 'TIME';</span>
+};
+&nbsp;
+/**
+ * A datetime column
+ * @property DATE
+ */
+var DATE = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function (length) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+      length: length
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof DATE)) <span class="cstat-no" title="statement not covered" >return new DATE(options);</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+<span class="cstat-no" title="statement not covered" >  this._length = options.length || '';</span>
+});
+&nbsp;
+DATE.prototype.key = DATE.key = 'DATE';
+DATE.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return 'DATETIME';</span>
+};
+DATE.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Validator.isDate(String(value))) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid date', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+DATE.prototype.$applyTimezone = <span class="fstat-no" title="function not covered" >function (date, options) {</span>
+<span class="cstat-no" title="statement not covered" >  if (options.timezone) {</span>
+<span class="cstat-no" title="statement not covered" >    if (momentTz.tz.zone(options.timezone)) {</span>
+<span class="cstat-no" title="statement not covered" >      date = momentTz(date).tz(options.timezone);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      date = moment(date).utcOffset(options.timezone);</span>
+    }
+  } else {
+<span class="cstat-no" title="statement not covered" >    date = momentTz(date);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return date;</span>
+};
+&nbsp;
+DATE.prototype.$stringify = <span class="fstat-no" title="function not covered" >function (date, options) {</span>
+<span class="cstat-no" title="statement not covered" >  date = this.$applyTimezone(date, options);</span>
+&nbsp;
+  // Z here means current timezone, _not_ UTC
+<span class="cstat-no" title="statement not covered" >  return date.format('YYYY-MM-DD HH:mm:ss.SSS Z');</span>
+};
+&nbsp;
+/**
+ * A date only column
+ * @property DATEONLY
+ */
+&nbsp;
+var DATEONLY = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof DATEONLY)) <span class="cstat-no" title="statement not covered" >return new DATEONLY();</span></span>
+<span class="cstat-no" title="statement not covered" >  ABSTRACT.apply(this, arguments);</span>
+};
+util.inherits(DATEONLY, ABSTRACT);
+&nbsp;
+DATEONLY.prototype.key = DATEONLY.key = 'DATEONLY';
+DATEONLY.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return 'DATE';</span>
+};
+&nbsp;
+/**
+ * A key / value column. Only available in postgres.
+ * @property HSTORE
+ */
+&nbsp;
+var HSTORE = ABSTRACT.inherits();
+&nbsp;
+HSTORE.prototype.key = HSTORE.key = 'HSTORE';
+HSTORE.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.isPlainObject(value)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid hstore', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * A JSON string column. Only available in postgres.
+ * @property JSON
+ */
+var JSONTYPE = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof JSONTYPE)) <span class="cstat-no" title="statement not covered" >return new JSONTYPE();</span></span>
+<span class="cstat-no" title="statement not covered" >  ABSTRACT.apply(this, arguments);</span>
+};
+util.inherits(JSONTYPE, ABSTRACT);
+&nbsp;
+JSONTYPE.prototype.key = JSONTYPE.key = 'JSON';
+JSONTYPE.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+JSONTYPE.prototype.$stringify = <span class="fstat-no" title="function not covered" >function (value, options) {</span>
+<span class="cstat-no" title="statement not covered" >  return JSON.stringify(value);</span>
+};
+&nbsp;
+/**
+ * A pre-processed JSON data column. Only available in postgres.
+ * @property JSONB
+ */
+var JSONB = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof JSONB)) <span class="cstat-no" title="statement not covered" >return new JSONB();</span></span>
+<span class="cstat-no" title="statement not covered" >  JSONTYPE.apply(this, arguments);</span>
+};
+util.inherits(JSONB, JSONTYPE);
+&nbsp;
+JSONB.prototype.key = JSONB.key = 'JSONB';
+&nbsp;
+/**
+ * A default value of the current timestamp
+ * @property NOW
+ */
+var NOW = ABSTRACT.inherits();
+&nbsp;
+NOW.prototype.key = NOW.key = 'NOW';
+&nbsp;
+/**
+ * Binary storage. Available lengths: `tiny`, `medium`, `long`
+ *
+ * @property BLOB
+ */
+&nbsp;
+var BLOB = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function(length) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof length === 'object' &amp;&amp; length || {</span>
+    length: length
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof BLOB)) <span class="cstat-no" title="statement not covered" >return new BLOB(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+<span class="cstat-no" title="statement not covered" >  this._length = options.length || '';</span>
+});
+&nbsp;
+BLOB.prototype.key = BLOB.key = 'BLOB';
+BLOB.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  switch (this._length.toLowerCase()) {</span>
+  case 'tiny':
+<span class="cstat-no" title="statement not covered" >    return 'TINYBLOB';</span>
+  case 'medium':
+<span class="cstat-no" title="statement not covered" >    return 'MEDIUMBLOB';</span>
+  case 'long':
+<span class="cstat-no" title="statement not covered" >    return 'LONGBLOB';</span>
+  default:
+<span class="cstat-no" title="statement not covered" >    return this.key;</span>
+  }
+};
+BLOB.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.isString(value) &amp;&amp; !Buffer.isBuffer(value)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid blob', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+BLOB.prototype.escape = false;
+BLOB.prototype.$stringify = <span class="fstat-no" title="function not covered" >function (value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!Buffer.isBuffer(value)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (Array.isArray(value)) {</span>
+<span class="cstat-no" title="statement not covered" >      value = new Buffer(value);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      value = new Buffer(value.toString());</span>
+    }
+  }
+<span class="cstat-no" title="statement not covered" >  var hex = value.toString('hex');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return this.$hexify(hex);</span>
+};
+&nbsp;
+BLOB.prototype.$hexify = <span class="fstat-no" title="function not covered" >function (hex) {</span>
+<span class="cstat-no" title="statement not covered" >  return "X'" + hex + "'";</span>
+};
+&nbsp;
+/**
+ * Range types are data types representing a range of values of some element type (called the range's subtype).
+ * Only available in postgres.
+ * See {@link http://www.postgresql.org/docs/9.4/static/rangetypes.html|Postgres documentation} for more details
+ * @property RANGE
+ */
+&nbsp;
+var RANGE = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function (subtype) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = _.isPlainObject(subtype) ? subtype : { subtype: subtype };</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!options.subtype) <span class="cstat-no" title="statement not covered" >options.subtype = new INTEGER();</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (_.isFunction(options.subtype)) {</span>
+<span class="cstat-no" title="statement not covered" >    options.subtype = new options.subtype();</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof RANGE)) <span class="cstat-no" title="statement not covered" >return new RANGE(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  ABSTRACT.apply(this, arguments);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this._subtype = options.subtype.key;</span>
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+});
+&nbsp;
+var pgRangeSubtypes = {
+  integer: 'int4range',
+  bigint: 'int8range',
+  decimal: 'numrange',
+  dateonly: 'daterange',
+  date: 'tstzrange',
+  datenotz: 'tsrange'
+};
+&nbsp;
+RANGE.prototype.key = RANGE.key = 'RANGE';
+RANGE.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return pgRangeSubtypes[this._subtype.toLowerCase()];</span>
+};
+RANGE.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (_.isPlainObject(value) &amp;&amp; value.inclusive) {</span>
+<span class="cstat-no" title="statement not covered" >    value = value.inclusive;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(value)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid range', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (value.length !== 2) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError('A range must be an array with two elements');</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+&nbsp;
+/**
+ * A column storing a unique universal identifier. Use with `UUIDV1` or `UUIDV4` for default values.
+ * @property UUID
+ */
+var UUID = ABSTRACT.inherits();
+&nbsp;
+UUID.prototype.key = UUID.key = 'UUID';
+UUID.prototype.validate = <span class="fstat-no" title="function not covered" >function(value, options) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.isString(value) || !Validator.isUUID(value) &amp;&amp; (!options || !options.acceptStrings)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid uuid', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * A default unique universal identifier generated following the UUID v1 standard
+ * @property UUIDV1
+ */
+&nbsp;
+var UUIDV1 = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof UUIDV1)) <span class="cstat-no" title="statement not covered" >return new UUIDV1();</span></span>
+<span class="cstat-no" title="statement not covered" >  ABSTRACT.apply(this, arguments);</span>
+};
+util.inherits(UUIDV1, ABSTRACT);
+&nbsp;
+UUIDV1.prototype.key = UUIDV1.key = 'UUIDV1';
+UUIDV1.prototype.validate = <span class="fstat-no" title="function not covered" >function(value, options) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.isString(value) || !Validator.isUUID(value) &amp;&amp; (!options || !options.acceptStrings)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid uuid', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * A default unique universal identifier generated following the UUID v4 standard
+ * @property UUIDV4
+ */
+&nbsp;
+var UUIDV4 = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof UUIDV4)) <span class="cstat-no" title="statement not covered" >return new UUIDV4();</span></span>
+<span class="cstat-no" title="statement not covered" >  ABSTRACT.apply(this, arguments);</span>
+};
+util.inherits(UUIDV4, ABSTRACT);
+&nbsp;
+UUIDV4.prototype.key = UUIDV4.key = 'UUIDV4';
+UUIDV4.prototype.validate = <span class="fstat-no" title="function not covered" >function(value, options) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.isString(value) || !Validator.isUUID(value, 4) &amp;&amp; (!options || !options.acceptStrings)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid uuidv4', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * A virtual value that is not stored in the DB. This could for example be useful if you want to provide a default value in your model that is returned to the user but not stored in the DB.
+ *
+ * You could also use it to validate a value before permuting and storing it. Checking password length before hashing it for example:
+ * ```js
+ * sequelize.define('user', {
+ *   password_hash: DataTypes.STRING,
+ *   password: {
+ *     type: DataTypes.VIRTUAL,
+ *     set: function (val) {
+ *        this.setDataValue('password', val); // Remember to set the data value, otherwise it won't be validated
+ *        this.setDataValue('password_hash', this.salt + val);
+ *      },
+ *      validate: {
+ *         isLongEnough: function (val) {
+ *           if (val.length &lt; 7) {
+ *             throw new Error("Please choose a longer password")
+ *          }
+ *       }
+ *     }
+ *   }
+ * })
+ * ```
+ * In the above code the password is stored plainly in the password field so it can be validated, but is never stored in the DB.
+ *
+ * VIRTUAL also takes a return type and dependency fields as arguments
+ * If a virtual attribute is present in `attributes` it will automatically pull in the extra fields as well.
+ * Return type is mostly useful for setups that rely on types like GraphQL.
+ * ```js
+ * {
+ *   active: {
+ *     type: new DataTypes.VIRTUAL(DataTypes.BOOLEAN, ['createdAt']),
+ *     get: function() {
+ *       return this.get('createdAt') &gt; Date.now() - (7 * 24 * 60 * 60 * 1000)
+ *     }
+ *   }
+ * }
+ * ```
+ *
+ * @property VIRTUAL
+ * @alias NONE
+ */
+var VIRTUAL = <span class="fstat-no" title="function not covered" >function(ReturnType, fields) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof VIRTUAL)) <span class="cstat-no" title="statement not covered" >return new VIRTUAL(ReturnType, fields);</span></span>
+<span class="cstat-no" title="statement not covered" >  if (typeof ReturnType === 'function') <span class="cstat-no" title="statement not covered" >ReturnType = new ReturnType();</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.returnType = ReturnType;</span>
+<span class="cstat-no" title="statement not covered" >  this.fields = fields;</span>
+};
+util.inherits(VIRTUAL, ABSTRACT);
+&nbsp;
+VIRTUAL.prototype.key = VIRTUAL.key = 'VIRTUAL';
+&nbsp;
+/**
+ * An enumeration. `DataTypes.ENUM('value', 'another value')`.
+ *
+ * @property ENUM
+ */
+var ENUM = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = typeof value === 'object' &amp;&amp; !Array.isArray(value) &amp;&amp; value || {</span>
+    values: Array.prototype.slice.call(arguments).reduce(<span class="fstat-no" title="function not covered" >function(result, element) {</span>
+<span class="cstat-no" title="statement not covered" >      return result.concat(Array.isArray(element) ? element : [element]);</span>
+    }, [])
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof ENUM)) <span class="cstat-no" title="statement not covered" >return new ENUM(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  this.values = options.values;</span>
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+});
+&nbsp;
+ENUM.prototype.key = ENUM.key = 'ENUM';
+ENUM.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.includes(this.values, value)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid choice in %j', value, this.values));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+&nbsp;
+/**
+ * An array of `type`, e.g. `DataTypes.ARRAY(DataTypes.DECIMAL)`. Only available in postgres.
+ * @property ARRAY
+ */
+var ARRAY = <span class="fstat-no" title="function not covered" >function(type) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = _.isPlainObject(type) ? type : {</span>
+    type: type
+  };
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof ARRAY)) <span class="cstat-no" title="statement not covered" >return new ARRAY(options);</span></span>
+<span class="cstat-no" title="statement not covered" >  this.type = typeof options.type === 'function' ? new options.type() : options.type;</span>
+};
+util.inherits(ARRAY, ABSTRACT);
+&nbsp;
+ARRAY.prototype.key = ARRAY.key = 'ARRAY';
+ARRAY.prototype.toSql = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >  return this.type.toSql() + '[]';</span>
+};
+ARRAY.prototype.validate = <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >  if (!_.isArray(value)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new sequelizeErrors.ValidationError(util.format('%j is not a valid array', value));</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return true;</span>
+};
+ARRAY.is = <span class="fstat-no" title="function not covered" >function(obj, type) {</span>
+<span class="cstat-no" title="statement not covered" >  return obj instanceof ARRAY &amp;&amp; obj.type instanceof type;</span>
+};
+&nbsp;
+var helpers = {
+  BINARY: [STRING, CHAR],
+  UNSIGNED: [NUMBER, INTEGER, BIGINT, FLOAT, DOUBLE, REAL],
+  ZEROFILL: [NUMBER, INTEGER, BIGINT, FLOAT, DOUBLE, REAL],
+  PRECISION: [DECIMAL],
+  SCALE: [DECIMAL]
+};
+&nbsp;
+/**
+ * A column storing Geometry information.
+ *
+ * Only available in PostgreSQL (with PostGIS) or MySQL.
+ * In MySQL, allowable Geometry types are 'POINT', 'LINESTRING', 'POLYGON'.
+ *
+ * When using, GeoJSON is accepted as input and returned as output.
+ * In PostGIS, the GeoJSON is parsed using the PostGIS function `ST_GeomFromGeoJSON`.
+ * In MySQL it is parsed using the function `GeomFromText`.
+ * Therefore, one can just follow the [GeoJSON spec](http://geojson.org/geojson-spec.html) for handling geometry objects.  See the following examples:
+ *
+ * ```js
+ * // Create a new point:
+ * var point = { type: 'Point', coordinates: [39.807222,-76.984722]};
+ *
+ * User.create({username: 'username', geometry: point }).then(function(newUser) {
+ * ...
+ * });
+ *
+ * // Create a new linestring:
+ * var line = { type: 'LineString', 'coordinates': [ [100.0, 0.0], [101.0, 1.0] ] };
+ *
+ * User.create({username: 'username', geometry: line }).then(function(newUser) {
+ * ...
+ * });
+ *
+ * // Create a new polygon:
+ * var polygon = { type: 'Polygon', coordinates: [
+ *                 [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
+ *                   [100.0, 1.0], [100.0, 0.0] ]
+ *                 ]};
+ *
+ * User.create({username: 'username', geometry: polygon }).then(function(newUser) {
+ * ...
+ * });
+&nbsp;
+ * // Create a new point with a custom SRID:
+ * var point = {
+ *   type: 'Point',
+ *   coordinates: [39.807222,-76.984722],
+ *   crs: { type: 'name', properties: { name: 'EPSG:4326'} }
+ * };
+ *
+ * User.create({username: 'username', geometry: point }).then(function(newUser) {
+ * ...
+ * });
+ * ```
+ *
+ * @property GEOMETRY
+ */
+&nbsp;
+var GEOMETRY = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function(type, srid) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = _.isPlainObject(type) ? type : {</span>
+    type: type,
+    srid: srid
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof GEOMETRY)) <span class="cstat-no" title="statement not covered" >return new GEOMETRY(options);</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+<span class="cstat-no" title="statement not covered" >  this.type = options.type;</span>
+<span class="cstat-no" title="statement not covered" >  this.srid = options.srid;</span>
+});
+&nbsp;
+GEOMETRY.prototype.key = GEOMETRY.key = 'GEOMETRY';
+&nbsp;
+GEOMETRY.prototype.escape = false;
+GEOMETRY.prototype.$stringify = <span class="fstat-no" title="function not covered" >function (value, options) {</span>
+<span class="cstat-no" title="statement not covered" >  return 'GeomFromText(' + options.escape(Wkt.convert(value)) + ')';</span>
+};
+&nbsp;
+/**
+ * A geography datatype represents two dimensional spacial objects in an elliptic coord system.
+ * @property GEOGRAPHY
+ */
+&nbsp;
+var GEOGRAPHY = ABSTRACT.inherits(<span class="fstat-no" title="function not covered" >function(type, srid) {</span>
+<span class="cstat-no" title="statement not covered" >  var options = _.isPlainObject(type) ? type : {</span>
+    type: type,
+    srid: srid
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!(this instanceof GEOGRAPHY)) <span class="cstat-no" title="statement not covered" >return new GEOGRAPHY(options);</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.options = options;</span>
+<span class="cstat-no" title="statement not covered" >  this.type = options.type;</span>
+<span class="cstat-no" title="statement not covered" >  this.srid = options.srid;</span>
+});
+&nbsp;
+GEOGRAPHY.prototype.key = GEOGRAPHY.key = 'GEOGRAPHY';
+&nbsp;
+GEOGRAPHY.prototype.escape = false;
+GEOGRAPHY.prototype.$stringify = <span class="fstat-no" title="function not covered" >function (value, options) {</span>
+<span class="cstat-no" title="statement not covered" >  return 'GeomFromText(' + options.escape(Wkt.convert(value)) + ')';</span>
+};
+&nbsp;
+Object.keys(helpers).forEach(function (helper) {
+  helpers[helper].forEach(function (DataType) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!DataType[helper]) {
+      Object.defineProperty(DataType, helper, {
+        get: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >          var dataType = new DataType();</span>
+<span class="cstat-no" title="statement not covered" >          if (typeof dataType[helper] === 'object') {</span>
+<span class="cstat-no" title="statement not covered" >            return dataType;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return dataType[helper].apply(dataType, arguments);</span>
+        }
+      });
+    }
+  });
+});
+&nbsp;
+var dataTypes = {
+  ABSTRACT: ABSTRACT,
+  STRING: STRING,
+  CHAR: CHAR,
+  TEXT: TEXT,
+  NUMBER: NUMBER,
+  INTEGER: INTEGER,
+  BIGINT: BIGINT,
+  FLOAT: FLOAT,
+  TIME: TIME,
+  DATE: DATE,
+  DATEONLY: DATEONLY,
+  BOOLEAN: BOOLEAN,
+  NOW: NOW,
+  BLOB: BLOB,
+  DECIMAL: DECIMAL,
+  NUMERIC: DECIMAL,
+  UUID: UUID,
+  UUIDV1: UUIDV1,
+  UUIDV4: UUIDV4,
+  HSTORE: HSTORE,
+  JSON: JSONTYPE,
+  JSONB: JSONB,
+  VIRTUAL: VIRTUAL,
+  ARRAY: ARRAY,
+  NONE: VIRTUAL,
+  ENUM: ENUM,
+  RANGE: RANGE,
+  REAL: REAL,
+  DOUBLE: DOUBLE,
+  'DOUBLE PRECISION': DOUBLE,
+  GEOMETRY: GEOMETRY,
+  GEOGRAPHY: GEOGRAPHY
+};
+&nbsp;
+_.each(dataTypes, function (dataType) {
+  dataType.types = {};
+});
+&nbsp;
+dataTypes.postgres = require('./dialects/postgres/data-types')(dataTypes);
+dataTypes.mysql = require('./dialects/mysql/data-types')(dataTypes);
+dataTypes.mariadb = dataTypes.mysql;
+dataTypes.sqlite = require('./dialects/sqlite/data-types')(dataTypes);
+dataTypes.mssql = require('./dialects/mssql/data-types')(dataTypes);
+&nbsp;
+module.exports = dataTypes;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 11 2017 05:28:50 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
