@@ -1,6 +1,6 @@
 # npmtest-sequelize
 
-#### test coverage for  [sequelize (v3.30.4)](https://github.com/sequelize/sequelize#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-sequelize.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-sequelize) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-sequelize.svg)](https://travis-ci.org/npmtest/node-npmtest-sequelize)
+#### basic test coverage for  [sequelize (v3.30.4)](https://github.com/sequelize/sequelize#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-sequelize.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-sequelize) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-sequelize.svg)](https://travis-ci.org/npmtest/node-npmtest-sequelize)
 
 #### Multi dialect ORM for Node.JS/io.js
 
